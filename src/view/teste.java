@@ -9,11 +9,7 @@ public class teste {
         UsuarioDao usuario = new UsuarioDao();
         Usuario user = new Usuario("GABUROEL@gmail.com", "123456");
 
-        System.out.println("aaaabbb");
-        if (usuario.addUsuario(user)){
-            System.out.println("aaaa");
-        }
-        System.out.println("bbbbb");
+        System.out.println(usuario.buscarPorEmail("jose"));
 
     }
 }

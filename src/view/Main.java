@@ -41,7 +41,9 @@ public class Main {
                     break;
 
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Buscar usuario");
+                    String email = JOptionPane.showInputDialog(null, "Informe seu email");
+                    var usuario = usuarioDao.buscarPorEmail(email);
+                    JOptionPane.showMessageDialog(null, usuario.getEmail() + "\n" + usuario.getAgenda());
                     break;
 
                 default:

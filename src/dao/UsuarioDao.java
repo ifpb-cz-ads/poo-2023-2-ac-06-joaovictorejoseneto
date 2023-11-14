@@ -55,7 +55,7 @@ public class UsuarioDao {
 
     public boolean addUsuario(Usuario usuario){
         System.out.println(buscarPorEmail(usuario.getEmail()));
-        if(buscarPorEmail(usuario.getEmail()).equals(null)){
+        if(buscarPorEmail(usuario.getEmail()) == null){
             List<Usuario> usuarios = listarUsuarios();
             if(usuarios.add(usuario)){
                 atualizarArquivo(usuarios);
@@ -77,7 +77,7 @@ public class UsuarioDao {
     public Usuario buscarPorEmail(String email){
         List<Usuario> usuarios = listarUsuarios();
         for(Usuario usuario : usuarios){
-            if(usuario.getEmail() == email) {
+            if(usuario.getEmail().compareTo(email) == 0) {
                 return usuario;
             }
         }
