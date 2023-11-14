@@ -1,41 +1,55 @@
 package view;
 
+import dao.UsuarioDao;
+import model.Usuario;
+
 import javax.swing.*;
 
 public class Main {
+    private static UsuarioDao usuarioDao = new UsuarioDao();
     public static void main(String[] args) {
 
-        ImageIcon imageIcon = new ImageIcon("icone.png");
+        int choose;
 
-//        JOptionPane.showMessageDialog(null,
-//                "Hello World!", "Mensagem do sistema",
-//                JOptionPane.PLAIN_MESSAGE, imageIcon);
+        do {
+            choose = Integer.parseInt(JOptionPane.showInputDialog("Escolha uma das opções abaixo:" +
+                    "\n 1 - Cadastrar usuario" +
+                    "\n 2 - Listar usuario" +
+                    "\n 3 - Buscar usuario por email"));
 
-//        String nomes[] = {"João", "Maria", "Pedro", "Ana"};
-//
-//        String nome = (String) JOptionPane.showInputDialog(null,
-//                "Informe seu nome:", "Entrada de dados",
-//                JOptionPane.QUESTION_MESSAGE, null,nomes,
-//                nomes[0]);
-//        JOptionPane.showMessageDialog(null,
-//                "Bem vindo, "+nome);
 
-        int retorno = JOptionPane.showConfirmDialog(null,
-                "Deseja continuar?", "Mensagem do sistema",
-                JOptionPane.YES_NO_OPTION);
+            switch (choose) {
+                case 1:
+                    String emailValue = JOptionPane.showInputDialog(null, "Informe seu email");
+                    String senhaValue = JOptionPane.showInputDialog(null, "Informe sua senha");
+                    Usuario novoUser = new Usuario(emailValue, senhaValue);
 
-        if(retorno == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(null,
-                    "Escolheu sim");
-        }
-        if(retorno == JOptionPane.NO_OPTION){
-            JOptionPane.showMessageDialog(null,
-                    "Escolheu não");
-        }
-        if(retorno == JOptionPane.CLOSED_OPTION){
-            JOptionPane.showMessageDialog(null,
-                    "Fechou");
-        }
+                    if (usuarioDao.addUsuario(novoUser)){
+                        JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!");
+                        break;
+                    }
+                    JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário");
+                    break;
+
+                case 2:
+                    var listaUsuarios = usuarioDao.listarUsuarios();
+                    var text = "";
+                    for (Usuario usuario : listaUsuarios) {
+                        text += usuario.getEmail() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, text);
+                    break;
+
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Buscar usuario");
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção invalida");
+                }
+
+            } while (choose != 0);
+            JOptionPane.showMessageDialog(null, "Programa encerrado");
 
     }
 }
